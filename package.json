@@ -14,6 +14,11 @@
     "Mixin"
   ],
   "author": "Toby Brancher",
+  "homepage": "https://github.com/Loque-/guttr#readme",
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/Loque-/guttr"
+  },
   "license": "MIT",
   "devDependencies": {
     "@babel/cli": "^7.7.7",
