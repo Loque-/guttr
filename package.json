@@ -2,8 +2,9 @@
   "name": "guttr",
   "version": "1.0.0",
   "description": "OOCSS padding with breakpoints",
-  "main": "lib/index.js",
+  "main": "dist/index.js",
   "scripts": {
+    "build": "babel src --out-dir dist",
     "test": "jest"
   },
   "keywords": [
@@ -14,6 +15,7 @@
   "author": "Toby Brancher",
   "license": "MIT",
   "devDependencies": {
+    "@babel/cli": "^7.7.7",
     "@babel/core": "^7.7.7",
     "@babel/preset-env": "^7.7.7",
     "babel-jest": "^24.9.0",
