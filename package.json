@@ -1,0 +1,23 @@
+{
+  "name": "guttr",
+  "version": "1.0.0",
+  "description": "OOCSS padding with breakpoints",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [
+    "OOCSS",
+    "Gutter",
+    "Mixxin"
+  ],
+  "author": "Toby Brancher",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.7.7",
+    "@babel/preset-env": "^7.7.7",
+    "babel-jest": "^24.9.0",
+    "jest": "^24.9.0",
+    "lodash": "^4.17.15"
+  }
+}
