@@ -2,7 +2,9 @@ import { isEqual } from 'lodash';
 
 // TODO: Update JSDoc comments
 // TODO: Get reviews
-// TODO: Add test coverage
+// TODO: Best practice for functions? should they have default values?
+
+// Done: Add test coverage
 
 const DEFAULT_CONFIG = {
     base: {
