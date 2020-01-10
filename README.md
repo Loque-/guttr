@@ -60,7 +60,7 @@ siteGutter({}, { small: { top: 1 }, large: { top: 0.5 } })
 
 ## Why
 
-Grid systems are great but the fundemental qaulity is the gutters, this function allows us to manage multiple contexts for spacing (I'd recommend no more than 2) without implementing an entire grid system.
+Grid systems are great but the fundemental quality is the gutters, this function allows us to manage multiple contexts for spacing (I'd recommend no more than 2) without implementing an entire grid system.
 
 I originally created this functionality in a mixin for SCSS before moving full time to ReactJS, I immediately re-created it in JS and have used it on every project since.
 
