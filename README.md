@@ -1,5 +1,7 @@
 # Guttr
 
+[![codecov](https://codecov.io/gh/Loque-/guttr/branch/master/graph/badge.svg)](https://codecov.io/gh/Loque-/guttr)
+
 Utility for UI developers using OOCSS to return consistent gutters without having to use a grid system.
 
 
