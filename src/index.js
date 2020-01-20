@@ -1,4 +1,4 @@
-import { isEqual } from 'lodash';
+import isEqual from 'lodash/isEqual';
 
 // TODO: Update JSDoc comments
 // TODO: Get reviews
@@ -31,7 +31,7 @@ const DEFAULT_CONFIG = {
 /**
  * @summary Creates a CSS padding compatible string value from pvided gutter and object of multipliers
  * @function
- * @private
+ * @public
  *
  * @description
  * This function was created for the gutter CSSinJS mixin
