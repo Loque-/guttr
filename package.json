@@ -1,6 +1,6 @@
 {
   "name": "guttr",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "OOCSS padding with breakpoints",
   "main": "dist/index.js",
   "scripts": {
