@@ -9,7 +9,8 @@ import isEqual from 'lodash/isEqual';
 const DEFAULT_CONFIG = {
     base: {
         gutter: 16,
-        multipliers: { top: 0.5, right: 0.5, bottom: 0.5, left: 0.5 }
+        unit: 'px',
+        multipliers: { top: 0.5, right: 0.5, bottom: 0.5, left: 0.5 },
     },
     breakpoints: {
         // Expected style of config
@@ -25,7 +26,7 @@ const DEFAULT_CONFIG = {
         //     gutter: 28,
         //     mediaQuery: `@media(min-width: 1300px)`
         // }
-    }
+    },
 };
 
 /**
@@ -44,6 +45,7 @@ const DEFAULT_CONFIG = {
  */
 export function buildPadding(
     gutter = 16,
+    unit = 'px',
     { top = 0.5, right = 0.5, bottom = 0.5, left = 0.5 } = {}
 ) {
     const pTop = gutter * top;
@@ -51,7 +53,7 @@ export function buildPadding(
     const pBottom = gutter * bottom;
     const pLeft = gutter * left;
 
-    return `${pTop}px ${pRight}px ${pBottom}px ${pLeft}px`;
+    return `${pTop}${unit} ${pRight}${unit} ${pBottom}${unit} ${pLeft}${unit}`;
 }
 
 /**
@@ -106,18 +108,23 @@ export function generateGutter(
     // The object we append to and return
     let gutters = {
         // Create our default padding
-        padding: buildPadding(config.base.gutter, baseMultipliers)
+        padding: buildPadding(
+            config.base.gutter,
+            config.base.unit,
+            baseMultipliers
+        ),
     };
     // A reference to the last applied padding value to avoid duplicate/unwanted rules
     let lastPad = gutters.padding;
     // Last multipliers used to ensure previous breakpoint rules are preserved
     let lastMultipliers = {
-        ...baseMultipliers
+        ...baseMultipliers,
     };
 
     // Loop through breakpoints and create padding rule if required
     for (const point in config.breakpoints) {
         const breakpointVal = config.breakpoints[point].mediaQuery;
+        const unitVal = config.breakpoints[point].unit || config.base.unit;
         const gutterVal = config.breakpoints[point].gutter;
 
         // If we don't have a matching gutter for that breakpoint, ignore it
@@ -128,7 +135,7 @@ export function generateGutter(
         // Merge last used multipliers, and specific multipliers together (if there are any...)
         const multipliers = {
             ...lastMultipliers,
-            ...breakpointMultipliers[point]
+            ...breakpointMultipliers[point],
         };
 
         // Update lastMultipliers if it differs so they are carried forward to the next breakpoint
@@ -137,7 +144,7 @@ export function generateGutter(
         }
 
         // Create padding for breakpoint
-        const padding = buildPadding(gutterVal, multipliers);
+        const padding = buildPadding(gutterVal, unitVal, multipliers);
 
         // Would be nice to do something additionally here with last rules applied, for example;
         // - If the padding value changes, but the specified override is preserved
@@ -147,7 +154,7 @@ export function generateGutter(
         if (padding !== lastPad) {
             // Append gutter to gutters object
             gutters[breakpointVal] = {
-                padding
+                padding,
             };
         }
 
@@ -159,15 +166,15 @@ export function generateGutter(
 }
 
 export function guttr(userConfig = {}) {
-    return function(baseMultipliers, breakpointMultipliers) {
+    return function (baseMultipliers, breakpointMultipliers) {
         const localConfig = {
             // Merge base config
             base: {
                 ...DEFAULT_CONFIG.base,
-                ...userConfig.base
+                ...userConfig.base,
             },
             // Stomp breakpoint config
-            breakpoints: userConfig.breakpoints || DEFAULT_CONFIG.breakpoints
+            breakpoints: userConfig.breakpoints || DEFAULT_CONFIG.breakpoints,
         };
 
         const gutter = generateGutter.call(
