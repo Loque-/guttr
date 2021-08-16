@@ -1,36 +1,36 @@
 {
-  "name": "guttr",
-  "version": "1.1.0",
-  "description": "OOCSS padding with breakpoints",
-  "main": "dist/index.js",
-  "scripts": {
-    "build": "babel src --out-dir dist",
-    "prepublish": "npm run build",
-    "test": "jest"
-  },
-  "jest": {
-    "coverageDirectory": "./coverage/",
-    "collectCoverage": true
-  },
-  "keywords": [
-    "OOCSS",
-    "Gutter",
-    "Mixin"
-  ],
-  "author": "Toby Brancher",
-  "homepage": "https://github.com/Loque-/guttr#readme",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Loque-/guttr"
-  },
-  "license": "MIT",
-  "devDependencies": {
-    "@babel/cli": "^7.7.7",
-    "@babel/core": "^7.7.7",
-    "@babel/preset-env": "^7.7.7",
-    "babel-jest": "^24.9.0",
-    "codecov": "^3.6.1",
-    "jest": "^24.9.0",
-    "lodash": "^4.17.15"
-  }
+    "name": "guttr",
+    "version": "1.1.0",
+    "description": "OOCSS padding with breakpoints",
+    "main": "dist/index.js",
+    "scripts": {
+        "build": "babel src --out-dir dist",
+        "prepublish": "npm run build",
+        "test": "jest"
+    },
+    "jest": {
+        "coverageDirectory": "./coverage/",
+        "collectCoverage": true
+    },
+    "keywords": [
+        "OOCSS",
+        "Gutter",
+        "Mixin"
+    ],
+    "author": "Toby Brancher",
+    "homepage": "https://github.com/Loque-/guttr#readme",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Loque-/guttr"
+    },
+    "license": "MIT",
+    "devDependencies": {
+        "@babel/cli": "^7.7.7",
+        "@babel/core": "^7.7.7",
+        "@babel/preset-env": "^7.7.7",
+        "babel-jest": "^27.0.6",
+        "codecov": "^3.6.1",
+        "jest": "^24.9.0",
+        "lodash": "^4.17.15"
+    }
 }
