@@ -1,6 +1,6 @@
-import { guttr, generateGutter, buildPadding } from '.'
+import { guttr, generateGutter, buildPadding, GuttrConfig } from '.'
 
-const testConfig = {
+const testConfig: GuttrConfig = {
   base: {
     gutter: 16,
     unit: 'px',
@@ -37,17 +37,21 @@ describe('BuildPadding', () => {
   })
 
   test('Accepts a number for first argument', () => {
-    const generatedPadding = buildPadding(10)
+    const generatedPadding = buildPadding({ gutter: 10 })
     const expectedPadding = '5px 5px 5px 5px'
     expect(generatedPadding).toStrictEqual(expectedPadding)
   })
 
   test('Accepts object with values for top, right, bottom and left for the second argument', () => {
-    const generatedPadding = buildPadding(10, 'px', {
-      top: 0.25,
-      right: 1,
-      bottom: 0.25,
-      left: 1,
+    const generatedPadding = buildPadding({
+      gutter: 10,
+      unit: 'px',
+      multipliers: {
+        top: 0.25,
+        right: 1,
+        bottom: 0.25,
+        left: 1,
+      },
     })
     const expectedPadding = '2.5px 10px 2.5px 10px'
     expect(generatedPadding).toStrictEqual(expectedPadding)

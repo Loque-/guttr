@@ -1,12 +1,53 @@
 import isEqual from 'lodash/isEqual'
 
-// TODO: Update JSDoc comments
-// TODO: Get reviews
-// TODO: Best practice for functions? should they have default values?
+type Unit = 'px' | 'em' | 'rem' | '%' | 'vh' | 'vw'
 
-// Done: Add test coverage
+interface GutterPadding {
+  top?: number
+  right?: number
+  bottom?: number
+  left?: number
+}
 
-const DEFAULT_CONFIG = {
+interface Multipliers {
+  top?: number
+  right?: number
+  bottom?: number
+  left?: number
+}
+
+interface BuildPaddingConfig {
+  gutter?: number
+  unit?: Unit
+  multipliers?: Multipliers
+}
+
+export interface GuttrConfig {
+  base: {
+    gutter?: number
+    unit?: Unit
+    multipliers?: GutterPadding
+  }
+  breakpoints?: {
+    [key: string]: {
+      gutter?: number
+      unit?: Unit
+      mediaQuery: string
+    }
+  }
+}
+
+export interface GuttrBreakpoints {
+  [key: string]: GutterPadding
+}
+
+interface GenerateGutterConfig {
+  config?: GuttrConfig
+  baseMultipliers?: GutterPadding
+  breakpointMultipliers?: any
+}
+
+const DEFAULT_CONFIG: GuttrConfig = {
   base: {
     gutter: 16,
     unit: 'px',
@@ -30,7 +71,7 @@ const DEFAULT_CONFIG = {
 }
 
 /**
- * @summary Creates a CSS padding compatible string value from pvided gutter and object of multipliers
+ * @summary Creates a CSS padding compatible string value from provided gutter and object of multipliers
  * @function
  * @public
  *
@@ -43,11 +84,11 @@ const DEFAULT_CONFIG = {
  * @returns {String} A CSS compatible string value for the `padding` property
  *
  */
-export function buildPadding(
+export function buildPadding({
   gutter = 16,
   unit = 'px',
-  { top = 0.5, right = 0.5, bottom = 0.5, left = 0.5 } = {},
-) {
+  multipliers: { top = 0.5, right = 0.5, bottom = 0.5, left = 0.5 } = {},
+}: BuildPaddingConfig = {}) {
   const pTop = gutter * top
   const pRight = gutter * right
   const pBottom = gutter * bottom
@@ -100,19 +141,19 @@ export function buildPadding(
  * );
  *
  */
-export function generateGutter(
+export function generateGutter({
   config = DEFAULT_CONFIG,
   baseMultipliers = config.base.multipliers,
   breakpointMultipliers = {},
-) {
+}: GenerateGutterConfig = {}) {
   // The object we append to and return
   let gutters = {
     // Create our default padding
-    padding: buildPadding(
-      config.base.gutter,
-      config.base.unit,
-      baseMultipliers,
-    ),
+    padding: buildPadding({
+      gutter: config.base.gutter,
+      unit: config.base.unit,
+      multipliers: baseMultipliers,
+    }),
   }
   // A reference to the last applied padding value to avoid duplicate/unwanted rules
   let lastPad = gutters.padding
@@ -144,7 +185,11 @@ export function generateGutter(
     }
 
     // Create padding for breakpoint
-    const padding = buildPadding(gutterVal, unitVal, multipliers)
+    const padding = buildPadding({
+      gutter: gutterVal,
+      unit: unitVal,
+      multipliers: multipliers,
+    })
 
     // Would be nice to do something additionally here with last rules applied, for example;
     // - If the padding value changes, but the specified override is preserved
@@ -165,24 +210,25 @@ export function generateGutter(
   return gutters
 }
 
-export function guttr(userConfig = {}) {
-  return function (baseMultipliers, breakpointMultipliers) {
+export function guttr(userConfig?: GuttrConfig) {
+  return function (
+    baseMultipliers?: Multipliers,
+    breakpointMultipliers?: GuttrBreakpoints,
+  ) {
     const localConfig = {
       // Merge base config
       base: {
         ...DEFAULT_CONFIG.base,
-        ...userConfig.base,
+        ...userConfig?.base,
       },
-      // Stomp breakpoint config
-      breakpoints: userConfig.breakpoints || DEFAULT_CONFIG.breakpoints,
+      breakpoints: userConfig?.breakpoints,
     }
 
-    const gutter = generateGutter.call(
-      this,
-      localConfig,
+    const gutter = generateGutter.call(this, {
+      config: localConfig,
       baseMultipliers,
       breakpointMultipliers,
-    )
+    })
     return gutter
   }
 }
