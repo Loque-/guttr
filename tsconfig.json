@@ -1,11 +1,9 @@
 {
   "compilerOptions": {
-    "target": "es6",
+    "target": "ESNext",
     "module": "ESNext",
-    "strict": true,
+    "strict": true
   },
   "include": ["src/**/*"],
-  "exclude": [
-    "node_modules"
-  ] /* Declares which files TypeScript should ignore */
+  "exclude": ["node_modules"]
 }
